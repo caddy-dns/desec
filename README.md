@@ -42,7 +42,7 @@ or with the Caddyfile:
 ```
 # one site
 tls {
-	dns provider_name desec {
+	dns desec {
 		token "YOUR_TOKEN"
 	}
 }
