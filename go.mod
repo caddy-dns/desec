@@ -6,7 +6,7 @@ toolchain go1.24.1
 
 require (
 	github.com/caddyserver/caddy/v2 v2.10.0
-	github.com/libdns/desec v1.0.0
+	github.com/libdns/desec v1.0.1
 )
 
 require (
