@@ -1,10 +1,10 @@
 module github.com/caddy-dns/desec
 
-go 1.24
+go 1.25
 
 require (
 	github.com/caddyserver/caddy/v2 v2.10.2
-	github.com/libdns/desec v1.1.0
+	github.com/libdns/desec v1.1.1
 )
 
 require (
