@@ -30,24 +30,34 @@ func (p *Provider) Provision(ctx caddy.Context) error {
 
 // UnmarshalCaddyfile sets up the DNS provider from Caddyfile tokens. Syntax:
 //
+//	desec <token>
+//
+// or
+//
 //	desec {
-//	     token <token>
+//		     token <token>
 //	}
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
+	tokenSet := false
 	for d.Next() {
 		if d.NextArg() {
-			return d.ArgErr()
+			p.Provider.Token = d.Val()
+			tokenSet = true
+			if d.NextArg() {
+				return d.ArgErr()
+			}
 		}
 		for nesting := d.Nesting(); d.NextBlock(nesting); {
 			switch d.Val() {
 			case "token":
+				if tokenSet {
+					return d.Err("token already set")
+				}
 				if !d.NextArg() {
 					return d.ArgErr()
 				}
-				if p.Provider.Token != "" {
-					return d.Err("token already set")
-				}
 				p.Provider.Token = d.Val()
+				tokenSet = true
 				if d.NextArg() {
 					return d.ArgErr()
 				}
@@ -56,7 +66,7 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 			}
 		}
 	}
-	if p.Provider.Token == "" {
+	if !tokenSet || p.Provider.Token == "" || p.Provider.Token == "{}" {
 		return d.Err("missing token")
 	}
 	return nil

@@ -1,5 +1,4 @@
-[deSEC](https://desec.io) module for Caddy
-==========================================
+# [deSEC](https://desec.io) module for Caddy
 
 This package contains a DNS provider module for [Caddy](https://github.com/caddyserver/caddy). It
 can be used to manage DNS records with [deSEC](https://desec.io).
@@ -16,34 +15,41 @@ To use this module for the ACME DNS challenge, [configure the ACME issuer in you
 
 ```json
 {
-	"module": "acme",
-	"challenges": {
-		"dns": {
-			"provider": {
-				"name": "desec",
-				"token": "YOUR_TOKEN"
-			}
-		}
-	}
+  "module": "acme",
+  "challenges": {
+    "dns": {
+      "provider": {
+        "name": "desec",
+        "token": "YOUR_TOKEN"
+      }
+    }
+  }
 }
 ```
 
 or with the Caddyfile:
 
-```
+```caddyfile
 # globally
 {
-	acme_dns desec {
-		token "YOUR_TOKEN"
-	}
+   acme_dns desec {
+      token "YOUR_TOKEN"
+   }
 }
 ```
 
-```
+```caddyfile
 # one site
 tls {
-	dns desec {
-		token "YOUR_TOKEN"
-	}
+   dns desec {
+      token "YOUR_TOKEN"
+   }
+}
+```
+
+```caddyfile
+# one line
+tls {
+   dns desec "YOUR_TOKEN"
 }
 ```
